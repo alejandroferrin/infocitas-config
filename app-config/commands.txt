@@ -1,0 +1,3 @@
+docker network create chatbotinfocitas_network
+//borrar
+docker network rm chatbotinfocitas_network

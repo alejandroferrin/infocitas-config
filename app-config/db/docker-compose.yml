@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  chatbotinfocitas_mongo:
+    image: mongo:7.0.3
+    container_name: chatbotinfocitas_mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: changetheusername
+      MONGO_INITDB_ROOT_PASSWORD: changethepass
+      MONGO_INITDB_DATABASE: chatbotinfocitas
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+    restart: always
+    networks:
+      - chatbotinfocitas_network
+volumes:
+  mongo-data:
+networks:
+  chatbotinfocitas_network:
+    external: true
