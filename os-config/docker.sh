@@ -1,0 +1,1 @@
+docker network create chatbotinfocitas_network
