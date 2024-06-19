@@ -30,7 +30,7 @@ http {
     }
     server {
         listen 443 ssl;
-        server_name $DOMAIN1;
+        server_name $DOMAIN;
         client_max_body_size 1000M;
         location / {
             proxy_pass http://citas:8080;
