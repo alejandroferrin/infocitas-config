@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Verificación de argumentos
-if [ "$#" -ne 2 ]; then
-    echo "Usage: $0 domain_name localhost"
+if [ "$#" -ne 4 ]; then
+    echo "Usage: $0 domain.com citas dbuser dbpass"
     exit 1
 fi
 
