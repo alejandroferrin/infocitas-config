@@ -11,6 +11,9 @@ APP=$2
 DBUSER=$3
 DBPASS=$4
 
+mkdir db
+mkdir app
+mkdir sidecar
 
 #sidecar nginx config
 cat <<EOL > ./sidecar/nginx.conf
