@@ -1,0 +1,6 @@
+1.dominio
+2.nombre app (citas)
+3.db user
+4.db password
+
+$ ./create-app-script.sh demo.domain.com citas myuser pa22wor0
