@@ -74,7 +74,7 @@ version: '3.8'
 
 services:
   citas:
-    image: alexfer/chatbotinfocitas:1.0.0
+    image: alexfer/chatbotinfocitas:1.1.0
     container_name: chatbotinfocitas_spring
     environment:
       - SPRING_DATA_MONGODB_HOST=chatbotinfocitas_mongo
