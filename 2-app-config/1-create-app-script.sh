@@ -47,7 +47,6 @@ EOL
 
 #sidecar docker-compose
 cat <<EOL > ./sidecar/docker-compose.yml
-version: '3.8'
 
 services:
   sidecar:
@@ -70,7 +69,6 @@ EOL
 
 #app docker-compose
 cat <<EOL > ./app/docker-compose.yml
-version: '3.8'
 
 services:
   citas:
@@ -94,7 +92,6 @@ EOL
 
 #db docker-compose
 cat <<EOL > ./db/docker-compose.yml
-version: '3.8'
 
 services:
   chatbotinfocitas_mongo:
@@ -105,7 +102,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: $DBPASS
       MONGO_INITDB_DATABASE: chatbotinfocitas
     volumes:
-      - mongo-data:/data/db
+      - ./mongo-data:/data/db
     ports:
       - "27017:27017"
     restart: always
