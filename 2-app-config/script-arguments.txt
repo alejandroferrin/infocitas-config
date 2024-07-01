@@ -3,4 +3,4 @@
 3.db user
 4.db password
 
-$ ./create-app-script.sh demo.domain.com citas myuser pa22wor0
+$ ./create-app-script.sh app.domain.com chat.domain.com citas myuser pa22wor0

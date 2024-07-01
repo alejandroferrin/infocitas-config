@@ -1,15 +1,16 @@
 #!/bin/sh
 
 # Verificación de argumentos
-if [ "$#" -ne 4 ]; then
+if [ "$#" -ne 5 ]; then
     echo "Usage: $0 domain.com citas dbuser dbpass"
     exit 1
 fi
 
-DOMAIN=$1
-APP=$2
-DBUSER=$3
-DBPASS=$4
+DOMAIN_DASHBOARD=$1
+DOMAIN_CHAT=$2
+APP=$3
+DBUSER=$4
+DBPASS=$5
 
 mkdir db
 mkdir app
@@ -30,15 +31,29 @@ http {
     }
     server {
         listen 443 ssl;
-        server_name $DOMAIN;
+        server_name $DOMAIN_DASHBOARD;
         client_max_body_size 1000M;
         location / {
             proxy_pass http://citas:8080;
             proxy_redirect off;
             proxy_set_header Host \$host;
         }
-        ssl_certificate /etc/letsencrypt/live/$DOMAIN/fullchain.pem;
-        ssl_certificate_key /etc/letsencrypt/live/$DOMAIN/privkey.pem;
+        ssl_certificate /etc/letsencrypt/live/$DOMAIN_DASHBOARD/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/$DOMAIN_DASHBOARD/privkey.pem;
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+        ssl_ciphers HIGH:!aNULL:!MD5;
+    }
+    server {
+        listen 443 ssl;
+        server_name $DOMAIN_CHAT;
+        client_max_body_size 1000M;
+        location / {
+            proxy_pass http://citas:8080/chat;
+            proxy_redirect off;
+            proxy_set_header Host \$host;
+        }
+        ssl_certificate /etc/letsencrypt/live/$DOMAIN_CHAT/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/$DOMAIN_CHAT/privkey.pem;
         ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
         ssl_ciphers HIGH:!aNULL:!MD5;
     }
@@ -54,8 +69,8 @@ services:
     container_name: sidecar-nginx
     restart: always
     volumes:
-      - /etc/letsencrypt/live/$DOMAIN/fullchain.pem:/etc/letsencrypt/live/$DOMAIN/fullchain.pem
-      - /etc/letsencrypt/live/$DOMAIN/privkey.pem:/etc/letsencrypt/live/$DOMAIN/privkey.pem
+      - /etc/letsencrypt/live/$DOMAIN_DASHBOARD/fullchain.pem:/etc/letsencrypt/live/$DOMAIN_DASHBOARD/fullchain.pem
+      - /etc/letsencrypt/live/$DOMAIN_DASHBOARD/privkey.pem:/etc/letsencrypt/live/$DOMAIN_DASHBOARD/privkey.pem
       - ./nginx.conf:/etc/nginx/nginx.conf
     ports:
       - "443:443"
