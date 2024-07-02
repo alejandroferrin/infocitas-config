@@ -52,6 +52,11 @@ http {
           proxy_redirect off;
           proxy_set_header Host $host;
         }
+        location /chat {
+          proxy_pass http://citas:8080;
+          proxy_redirect off;
+          proxy_set_header Host $host;
+        }
         location /styles {
           rewrite ^/chat(.*) /$1 break;
           proxy_pass http://citas:8080;
