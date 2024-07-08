@@ -126,6 +126,8 @@ services:
     volumes:
       - /etc/letsencrypt/live/$DOMAIN_APP/fullchain.pem:/etc/letsencrypt/live/$DOMAIN_APP/fullchain.pem
       - /etc/letsencrypt/live/$DOMAIN_APP/privkey.pem:/etc/letsencrypt/live/$DOMAIN_APP/privkey.pem
+      - /etc/letsencrypt/live/$DOMAIN_CHAT/fullchain.pem:/etc/letsencrypt/live/$DOMAIN_CHAT/fullchain.pem
+      - /etc/letsencrypt/live/$DOMAIN_CHAT/privkey.pem:/etc/letsencrypt/live/$DOMAIN_CHAT/privkey.pem
       - ./nginx.conf:/etc/nginx/nginx.conf
     ports:
       - "443:443"
