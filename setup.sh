@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Verificación de argumentos
-if [ "$#" -ne 4 ]; then
+if [ "$#" -ne 9 ]; then
     echo "Wrong number of arguments"
     exit 1
 fi
