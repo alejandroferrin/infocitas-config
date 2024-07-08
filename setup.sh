@@ -26,7 +26,7 @@ http {
     keepalive_timeout  65;
     server {
         listen 80 default_server;
-        return 301 https://\$host\$request_uri;
+        return 301 https://\\$host\\$request_uri;
     }
     server {
         listen 443 ssl;
@@ -49,30 +49,30 @@ http {
         location / {
           proxy_pass http://citas:8080/chat;
           proxy_redirect off;
-          proxy_set_header Host $host;
+          proxy_set_header Host \$host;
         }
         location /chat {
           proxy_pass http://citas:8080;
           proxy_redirect off;
-          proxy_set_header Host $host;
+          proxy_set_header Host \$host;
         }
         location /styles {
           rewrite ^/chat(.*) /\$1 break;
           proxy_pass http://citas:8080;
           proxy_redirect off;
-          proxy_set_header Host $host;
+          proxy_set_header Host \$host;
         }
         location /scripts {
           rewrite ^/chat(.*) /\$1 break;
           proxy_pass http://citas:8080;
           proxy_redirect off;
-          proxy_set_header Host $host;
+          proxy_set_header Host \$host;
         }
         location /files {
           rewrite ^/chat(.*) /\$1 break;
           proxy_pass http://citas:8080;
           proxy_redirect off;
-          proxy_set_header Host $host;
+          proxy_set_header Host \$host;
         }
         ssl_certificate /etc/letsencrypt/live/$DOMAIN_CHAT/fullchain.pem;
         ssl_certificate_key /etc/letsencrypt/live/$DOMAIN_CHAT/privkey.pem;
