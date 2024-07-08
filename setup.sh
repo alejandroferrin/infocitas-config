@@ -1,17 +1,52 @@
 #!/bin/sh
 
 # Verificación de argumentos
-if [ "$#" -ne 5 ]; then
-    echo "Usage: $0 domain.com citas dbuser dbpass"
+if [ "$#" -ne 4 ]; then
+    echo "Wrong number of arguments"
     exit 1
 fi
 
-DOMAIN_DASHBOARD=$1
-DOMAIN_CHAT=$2
-APP=$3
-DBUSER=$4
-DBPASS=$5
+DOCKER_USER=$1
+DOCKER_PASS=$2
 
+DOMAIN_APP=$3
+DOMAIN_CHAT=$4
+
+DOMAIN_DASHBOARD=$5
+DOMAIN_CHAT=$6
+APP=$7
+DBUSER=$8
+DBPASS=$9
+
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+#Docker login
+docker login -u $DOCKER_USER -p $DOCKER_PASS
+
+#Create docker network
+docker network create bot_network
+
+# Install certbot:
+sudo apt-get install certbot
+
+#Generate certificates for https
+certbot certonly -d $DOMAIN_APP --noninteractive --standalone --agree-tos --register-unsafely-without-email
+certbot certonly -d $DOMAIN_CHAT --noninteractive --standalone --agree-tos --register-unsafely-without-email
+
+#Crar carpetas
 mkdir db
 mkdir app
 mkdir sidecar
