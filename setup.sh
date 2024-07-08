@@ -16,9 +16,9 @@ DBUSER=$5
 DBPASS=$6
 
 # Add Docker's official GPG key:
-sudo apt-get update
-sudo apt-get install ca-certificates curl
-sudo install -m 0755 -d /etc/apt/keyrings
+sudo apt-get update -y
+sudo apt-get install ca-certificates curl -y
+sudo install -m 0755 -d /etc/apt/keyrings -y
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
 # Add the repository to Apt sources:
@@ -26,7 +26,7 @@ echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
 sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 
@@ -37,7 +37,7 @@ docker login -u $DOCKER_USER -p $DOCKER_PASS
 docker network create bot_network
 
 # Install certbot:
-sudo apt-get install certbot
+sudo apt-get install certbot -y
 
 #Generate certificates for https
 certbot certonly -d $DOMAIN_APP --noninteractive --standalone --agree-tos --register-unsafely-without-email
@@ -90,19 +90,19 @@ http {
           proxy_set_header Host $host;
         }
         location /styles {
-          rewrite ^/chat(.*) /$1 break;
+          rewrite ^/chat(.*) /\$1 break;
           proxy_pass http://citas:8080;
           proxy_redirect off;
           proxy_set_header Host $host;
         }
         location /scripts {
-          rewrite ^/chat(.*) /$1 break;
+          rewrite ^/chat(.*) /\$1 break;
           proxy_pass http://citas:8080;
           proxy_redirect off;
           proxy_set_header Host $host;
         }
         location /files {
-          rewrite ^/chat(.*) /$1 break;
+          rewrite ^/chat(.*) /\$1 break;
           proxy_pass http://citas:8080;
           proxy_redirect off;
           proxy_set_header Host $host;
