@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Verificación de argumentos
-if [ "$#" -ne 9 ]; then
+if [ "$#" -ne 7 ]; then
     echo "Wrong number of arguments"
     exit 1
 fi
@@ -12,11 +12,9 @@ DOCKER_PASS=$2
 DOMAIN_APP=$3
 DOMAIN_CHAT=$4
 
-DOMAIN_DASHBOARD=$5
-DOMAIN_CHAT=$6
-APP=$7
-DBUSER=$8
-DBPASS=$9
+APP=$5
+DBUSER=$6
+DBPASS=$7
 
 # Add Docker's official GPG key:
 sudo apt-get update
