@@ -1,13 +1,19 @@
 #!/bin/sh
 
 # Verificación de argumentos
-if [ "$#" -ne 2 ]; then
+if [ "$#" -ne 4 ]; then
     echo "Wrong number of arguments"
     exit 1
 fi
 
-DBUSER=$1
-DBPASS=$2
+
+DOMAIN_APP=$1
+DOMAIN_CHAT=$2
+
+DBUSER=$3
+DBPASS=$4
+
+
 
 #sidecar nginx config
 cat <<EOL > ./sidecar/nginx.conf
