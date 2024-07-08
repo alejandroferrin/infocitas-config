@@ -64,15 +64,15 @@ http {
     }
     server {
         listen 443 ssl;
-        server_name $DOMAIN_DASHBOARD;
+        server_name $DOMAIN_APP;
         client_max_body_size 1000M;
         location / {
             proxy_pass http://citas:8080;
             proxy_redirect off;
             proxy_set_header Host \$host;
         }
-        ssl_certificate /etc/letsencrypt/live/$DOMAIN_DASHBOARD/fullchain.pem;
-        ssl_certificate_key /etc/letsencrypt/live/$DOMAIN_DASHBOARD/privkey.pem;
+        ssl_certificate /etc/letsencrypt/live/$DOMAIN_APP/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/$DOMAIN_APP/privkey.pem;
         ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
         ssl_ciphers HIGH:!aNULL:!MD5;
     }
@@ -125,8 +125,8 @@ services:
     container_name: sidecar-nginx
     restart: always
     volumes:
-      - /etc/letsencrypt/live/$DOMAIN_DASHBOARD/fullchain.pem:/etc/letsencrypt/live/$DOMAIN_DASHBOARD/fullchain.pem
-      - /etc/letsencrypt/live/$DOMAIN_DASHBOARD/privkey.pem:/etc/letsencrypt/live/$DOMAIN_DASHBOARD/privkey.pem
+      - /etc/letsencrypt/live/$DOMAIN_APP/fullchain.pem:/etc/letsencrypt/live/$DOMAIN_APP/fullchain.pem
+      - /etc/letsencrypt/live/$DOMAIN_APP/privkey.pem:/etc/letsencrypt/live/$DOMAIN_APP/privkey.pem
       - ./nginx.conf:/etc/nginx/nginx.conf
     ports:
       - "443:443"
