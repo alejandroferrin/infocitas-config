@@ -26,7 +26,7 @@ http {
     keepalive_timeout  65;
     server {
         listen 80 default_server;
-        return 301 https://\\$host\\$request_uri;
+        return 301 https://\$host\$request_uri;
     }
     server {
         listen 443 ssl;
