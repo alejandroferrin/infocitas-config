@@ -99,6 +99,7 @@ services:
     ports:
       - "443:443"
       - "80:80"
+    mem_limit: 12m  # Limitar la memoria a 12 MB
     networks:
       - bot_network
 networks:
@@ -122,6 +123,7 @@ services:
     restart: always
     ports:
       - "8080:8080"
+    mem_limit: 500m  # Limitar la memoria a 500 MB
     networks:
       - bot_network
 networks:
@@ -144,6 +146,7 @@ services:
       - ./mongo-data:/data/db
     ports:
       - "27017:27017"
+    mem_limit: 160m  # Limitar la memoria a 160 MB
     restart: always
     networks:
       - bot_network
