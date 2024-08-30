@@ -99,7 +99,7 @@ services:
     ports:
       - "443:443"
       - "80:80"
-    mem_limit: 12m  # Limitar la memoria a 12 MB
+    mem_limit: 30m  # Limitar la memoria a 30 MB
     networks:
       - bot_network
 networks:
